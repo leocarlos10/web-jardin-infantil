@@ -1,20 +1,22 @@
-package com.jardininfantil.web_institucional.models;
+package com.jardininfantil.web_institucional.dto.reserva;
 
-import com.jardininfantil.web_institucional.models.enums.EstadoReserva;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
 @Data
-@NoArgsConstructor
+@Builder
 @AllArgsConstructor
-public class ReservaCupo {
+@NoArgsConstructor
+public class ReservaResponse {
     private Long idReserva;
     private Long estudianteId;
+    private String nombreEstudiante;
+    private String estadoReserva;
     private String gradoSolicitado;
-    private EstadoReserva estadoReserva;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 }

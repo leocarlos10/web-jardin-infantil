@@ -1,25 +1,27 @@
-package com.jardininfantil.web_institucional.models;
+package com.jardininfantil.web_institucional.dto.acudiente;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Data
-@NoArgsConstructor
+@Builder
 @AllArgsConstructor
-public class Estudiante {
-    private Long estudianteId;
+@NoArgsConstructor
+public class AcudienteResponse {
     private Long acudienteId;
+    private Long usuarioId;
     private String nombre;
     private String apellido;
-    private LocalDate fechaNacimiento;
     private String tipoDocumento;
     private String numeroDocumento;
-    private String genero;
-    private String direccion;
     private String telefono;
+    private String correo;
+    private String direccion;
+    private String ocupacion;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 }

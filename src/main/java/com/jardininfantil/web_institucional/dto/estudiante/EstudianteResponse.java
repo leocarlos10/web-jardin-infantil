@@ -1,17 +1,21 @@
-package com.jardininfantil.web_institucional.models;
+package com.jardininfantil.web_institucional.dto.estudiante;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 @Data
-@NoArgsConstructor
+@Builder
 @AllArgsConstructor
-public class Estudiante {
+@NoArgsConstructor
+public class EstudianteResponse {
     private Long estudianteId;
     private Long acudienteId;
+    private String nombreAcudiente;
     private String nombre;
     private String apellido;
     private LocalDate fechaNacimiento;
