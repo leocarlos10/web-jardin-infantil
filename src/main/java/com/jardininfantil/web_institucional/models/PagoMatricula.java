@@ -1,33 +1,25 @@
 package com.jardininfantil.web_institucional.models;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import com.jardininfantil.web_institucional.models.enums.EstadoPago;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class PagoMatricula {
-    
-    @Getter @Setter
-    private Long id_pago;
-    @Getter @Setter
-    private Long id_matricula;
-    @Getter @Setter
-    private String mes;
-    @Getter @Setter
-    private LocalDate fecha_pago;
-    @Getter @Setter
-    private EstadoPago estado;
-
-    // Constructor vacío
-    public PagoMatricula() {
-    }
-
-    // Constructor con todos los parámetros
-    public PagoMatricula(Long id_pago, Long id_matricula, String mes, LocalDate fecha_pago, EstadoPago estado) {
-        this.id_pago = id_pago;
-        this.id_matricula = id_matricula;
-        this.mes = mes;
-        this.fecha_pago = fecha_pago;
-        this.estado = estado;
-    }
+    private Long idPago;
+    private Long matriculaId;
+    private LocalDate fechaPago;
+    private BigDecimal monto;
+    private String metodoPago;
+    private String referencia;
+    private EstadoPago estadoPago;
+    private String comprobante;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 }
