@@ -2,9 +2,6 @@ package com.jardininfantil.web_institucional.exception;
 
 import com.jardininfantil.web_institucional.dto.common.Response;
 import com.jardininfantil.web_institucional.dto.common.ValidationErrorDetail;
-import com.jardininfantil.web_institucional.exception.BadRequestCustomException;
-import com.jardininfantil.web_institucional.exception.DataExistException;
-import com.jardininfantil.web_institucional.exception.NotFoundException;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -13,7 +10,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;

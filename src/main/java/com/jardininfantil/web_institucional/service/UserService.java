@@ -60,7 +60,7 @@ public class UserService {
         user.setCorreo(request.getEmail());
         user.setPassword(hashedPassword);
         user.setIsActive(true);
-        user.setTipo_Usuario(RolUsuario.ACUDIENTE);
+        user.setTipo_Usuario(RolUsuario.USUARIO);
 
         try {
             userRepository.save(user);
