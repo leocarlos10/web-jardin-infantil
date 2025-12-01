@@ -71,6 +71,7 @@ public class WebSecurityConfig {
             .exceptionHandling(exception ->
                 exception.authenticationEntryPoint(unauthorizedHandler)
             )
+            .cors(cors -> cors.configurationSource(corsConfigurationSource()))
             .sessionManagement(session ->
                 session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             )
