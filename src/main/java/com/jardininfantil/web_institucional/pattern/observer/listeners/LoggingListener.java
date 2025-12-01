@@ -20,13 +20,12 @@ public class LoggingListener implements EventListener {
     public void update(String eventType, Object data) {
         String timestamp = LocalDateTime.now().toString();
         logger.info("📝 [AUDIT] {} - Evento: {} | Datos: {}", timestamp, eventType, data);
-        
-        // Aquí se podría guardar en una tabla de auditoría en la BD
+    
         saveToAuditLog(eventType, data, timestamp);
     }
 
-    private void saveToAuditLog(String eventType, Object data, String timestamp) {
-        // Implementar guardado en tabla de auditoría
+    // TODO: guardar en la base de datos los enventos del sistema para llavar un control
+    private void saveToAuditLog(String eventType, Object data, String timestamp) {  
         logger.debug("Guardando en log de auditoría: {} - {}", eventType, timestamp);
     }
 }

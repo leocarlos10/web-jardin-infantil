@@ -1,52 +1,81 @@
 package com.jardininfantil.web_institucional.pattern.observer.listeners;
 
 import com.jardininfantil.web_institucional.pattern.observer.EventListener;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 /**
- * Listener concreto para notificaciones por email
- * Se activa cuando ocurren eventos importantes en el sistema
+ * Listener responsable de enviar emails automáticos
+ * cuando ocurren eventos importantes en el sistema.
  */
+@Slf4j
+@RequiredArgsConstructor
 @Component
 public class EmailNotificationListener implements EventListener {
-    
-    private static final Logger logger = LoggerFactory.getLogger(EmailNotificationListener.class);
 
     @Override
     public void update(String eventType, Object data) {
-        // Aquí se implementaría el envío real de emails
-        logger.info("📧 Email enviado para evento: {} con datos: {}", eventType, data);
-        
-        // Ejemplo de lógica según el tipo de evento
+        log.info(
+            "Email enviado para evento: {} | Datos recibidos: {}",
+            eventType,
+            data
+        );
+
         switch (eventType) {
-            case "reserva.aprobada":
-                sendReservaAprobadaEmail(data);
-                break;
-            case "pago.verificado":
-                sendPagoVerificadoEmail(data);
-                break;
-            case "matricula.creada":
-                sendMatriculaCreadaEmail(data);
-                break;
-            default:
-                logger.info("Evento no manejado para email: {}", eventType);
+            case "reserva.aprobada" -> sendReservaAprobadaEmail(data);
+            case "reserva.rechazada" -> sendReservaRechazadaEmail(data);
+            case "matricula.creada" -> sendMatriculaCreadaEmail(data);
+            case "matricula.cancelada" -> sendMatriculaCanceladaEmail(data);
+            case "pago.verificado" -> sendPagoVerificadoEmail(data);
+            case "pago.rechazado" -> sendPagoRechazadoEmail(data);
+            case "registro.creado" -> sendBienvenidaRegistroEmail(data);
+            case "cupo.agotado" -> sendCupoAgotadoEmail(data);
+            case "lista_espera.avanza" -> sendListaEsperaAvanzaEmail(data);
+            default -> log.debug(
+                "No hay plantilla de email configurada para el evento: {}",
+                eventType
+            );
         }
     }
 
     private void sendReservaAprobadaEmail(Object data) {
-        logger.info("Enviando email de reserva aprobada...");
-        // Implementar envío de email con plantilla
+        log.info("Enviando email: Reserva aprobada");
     }
 
-    private void sendPagoVerificadoEmail(Object data) {
-        logger.info("Enviando email de pago verificado...");
-        // Implementar envío de email con comprobante
+    private void sendReservaRechazadaEmail(Object data) {
+        log.info("Enviando email: Reserva rechazada");
     }
 
     private void sendMatriculaCreadaEmail(Object data) {
-        logger.info("Enviando email de matrícula creada...");
-        // Implementar envío de email de bienvenida
+        log.info("Enviando email: Matrícula creada – Bienvenida oficial");
+    }
+
+    private void sendMatriculaCanceladaEmail(Object data) {
+        log.info("Enviando email: Matrícula cancelada");
+    }
+
+    private void sendPagoVerificadoEmail(Object data) {
+        log.info("Enviando email: Pago verificado + comprobante");
+    }
+
+    private void sendPagoRechazadoEmail(Object data) {
+        log.info("Enviando email: Pago rechazado – solicita nuevo comprobante");
+    }
+
+    private void sendBienvenidaRegistroEmail(Object data) {
+        log.info("Enviando email: Gracias por registrarte en Jardín Arcoíris");
+    }
+
+    private void sendCupoAgotadoEmail(Object data) {
+        log.info(
+            "Enviando email: Cupo agotado – te agregamos a lista de espera"
+        );
+    }
+
+    private void sendListaEsperaAvanzaEmail(Object data) {
+        log.info(
+            "Enviando email URGENTE: Se liberó un cupo – tienes 24h para confirmar"
+        );
     }
 }

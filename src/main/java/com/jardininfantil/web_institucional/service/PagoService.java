@@ -45,7 +45,6 @@ public class PagoService {
 
         PagoMatricula savedPago = pagoRepository.save(pago);
         
-        // Notificar evento usando patrón Observer
         eventManager.notify(EventType.PAGO_REGISTRADO.getValue(), savedPago);
         
         return mapToResponse(savedPago);

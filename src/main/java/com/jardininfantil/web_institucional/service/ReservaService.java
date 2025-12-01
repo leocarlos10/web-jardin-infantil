@@ -42,7 +42,6 @@ public class ReservaService {
 
         Reserva savedReserva = reservaRepository.save(reserva);
         
-        // Notificar evento usando patrón Observer
         eventManager.notify(EventType.RESERVA_CREADA.getValue(), savedReserva);
         
         return mapToResponse(savedReserva, estudiante.getNombre() + " " + estudiante.getApellido());
@@ -78,7 +77,6 @@ public class ReservaService {
         reserva.setEstadoReserva(EstadoReserva.ACEPTADA);
         reservaRepository.update(reserva);
 
-        // Notificar evento usando patrón Observer
         eventManager.notify(EventType.RESERVA_APROBADA.getValue(), reserva);
 
         return mapToResponseSimple(reserva);
@@ -91,7 +89,6 @@ public class ReservaService {
         reserva.setEstadoReserva(EstadoReserva.RECHAZADA);
         reservaRepository.update(reserva);
 
-        // Notificar evento usando patrón Observer
         eventManager.notify(EventType.RESERVA_RECHAZADA.getValue(), reserva);
 
         return mapToResponseSimple(reserva);

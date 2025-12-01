@@ -8,6 +8,7 @@ public enum EventType {
     RESERVA_CREADA("reserva.creada"),
     RESERVA_APROBADA("reserva.aprobada"),
     RESERVA_RECHAZADA("reserva.rechazada"),
+    REGISTRO_CREADO("registro.creado"),
     MATRICULA_CREADA("matricula.creada"),
     MATRICULA_CANCELADA("matricula.cancelada"),
     PAGO_REGISTRADO("pago.registrado"),
