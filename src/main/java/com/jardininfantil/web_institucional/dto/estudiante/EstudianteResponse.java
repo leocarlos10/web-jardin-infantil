@@ -17,13 +17,22 @@ public class EstudianteResponse {
     private Long acudienteId;
     private String nombreAcudiente;
     private String nombre;
-    private String apellido;
+    private String segundoNombre;
+    private String primerApellido;
+    private String segundoApellido;
+    private String numeroRegistroCivil;
+    private LocalDate fechaExp;
     private LocalDate fechaNacimiento;
-    private String tipoDocumento;
-    private String numeroDocumento;
-    private String genero;
+    private Integer tipoSangre;
+    private String sexo;
+    private String correoPadres;
+    private Integer edad;
+    private String lugarNacimiento;
+    private String municipio;
+    private String departamento;
     private String direccion;
-    private String telefono;
+    private String barrio;
+    private String tipoEstudiante;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 }

@@ -35,7 +35,7 @@ public class ReservaService {
         reserva.setEstadoReserva(EstadoReserva.PENDIENTE);
 
         Reserva savedReserva = reservaRepository.save(reserva);
-        return mapToResponse(savedReserva, estudiante.getNombre() + " " + estudiante.getApellido());
+        return mapToResponse(savedReserva, estudiante.getNombre() + " " + estudiante.getPrimerApellido());
     }
 
     public ReservaResponse obtenerReserva(Long id) {
@@ -45,7 +45,7 @@ public class ReservaService {
         Estudiante estudiante = estudianteRepository.findById(reserva.getEstudianteId())
                 .orElseThrow(() -> new NotFoundException("Estudiante no encontrado"));
 
-        return mapToResponse(reserva, estudiante.getNombre() + " " + estudiante.getApellido());
+        return mapToResponse(reserva, estudiante.getNombre() + " " + estudiante.getPrimerApellido());
     }
 
     public List<ReservaResponse> listarTodasReservas() {
@@ -95,7 +95,7 @@ public class ReservaService {
 
     private ReservaResponse mapToResponseSimple(Reserva reserva) {
         String nombreEstudiante = estudianteRepository.findById(reserva.getEstudianteId())
-                .map(e -> e.getNombre() + " " + e.getApellido())
+                .map(e -> e.getNombre() + " " + e.getPrimerApellido())
                 .orElse("Desconocido");
 
         return mapToResponse(reserva, nombreEstudiante);

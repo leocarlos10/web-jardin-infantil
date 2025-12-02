@@ -22,7 +22,7 @@ public class ReservaController {
         this.reservaService = reservaService;
     }
 
-    @PostMapping
+    @PostMapping("/crear")
     public ResponseEntity<Response<ReservaResponse>> crearReserva(@Valid @RequestBody ReservaRequest request) {
         ReservaResponse reserva = reservaService.crearReserva(request);
         Response<ReservaResponse> response = Response.<ReservaResponse>builder()
@@ -33,18 +33,7 @@ public class ReservaController {
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Response<ReservaResponse>> obtenerReserva(@PathVariable Long id) {
-        ReservaResponse reserva = reservaService.obtenerReserva(id);
-        Response<ReservaResponse> response = Response.<ReservaResponse>builder()
-                .responseCode(HttpStatus.OK.value())
-                .responseMessage("Reserva encontrada")
-                .data(reserva)
-                .build();
-        return ResponseEntity.ok(response);
-    }
-
-    @GetMapping
+    @GetMapping("/obtenerTodas")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Response<List<ReservaResponse>>> listarTodasReservas() {
         List<ReservaResponse> reservas = reservaService.listarTodasReservas();
@@ -52,6 +41,17 @@ public class ReservaController {
                 .responseCode(HttpStatus.OK.value())
                 .responseMessage("Lista de reservas obtenida")
                 .data(reservas)
+                .build();
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Response<ReservaResponse>> obtenerReserva(@PathVariable Long id) {
+        ReservaResponse reserva = reservaService.obtenerReserva(id);
+        Response<ReservaResponse> response = Response.<ReservaResponse>builder()
+                .responseCode(HttpStatus.OK.value())
+                .responseMessage("Reserva encontrada")
+                .data(reserva)
                 .build();
         return ResponseEntity.ok(response);
     }

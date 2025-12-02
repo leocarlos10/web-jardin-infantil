@@ -38,7 +38,7 @@ public class MatriculaService {
         matricula.setEstadoMatricula(EstadoMatricula.ACTIVA);
 
         Matricula savedMatricula = matriculaRepository.save(matricula);
-        return mapToResponse(savedMatricula, estudiante.getNombre() + " " + estudiante.getApellido());
+        return mapToResponse(savedMatricula, estudiante.getNombre() + " " + estudiante.getPrimerApellido());
     }
 
     public MatriculaResponse obtenerMatricula(Long id) {
@@ -48,7 +48,7 @@ public class MatriculaService {
         Estudiante estudiante = estudianteRepository.findById(matricula.getEstudianteId())
                 .orElseThrow(() -> new NotFoundException("Estudiante no encontrado"));
 
-        return mapToResponse(matricula, estudiante.getNombre() + " " + estudiante.getApellido());
+        return mapToResponse(matricula, estudiante.getNombre() + " " + estudiante.getPrimerApellido());
     }
 
     public List<MatriculaResponse> listarTodasMatriculas() {
@@ -104,7 +104,7 @@ public class MatriculaService {
 
     private MatriculaResponse mapToResponseSimple(Matricula matricula) {
         String nombreEstudiante = estudianteRepository.findById(matricula.getEstudianteId())
-                .map(e -> e.getNombre() + " " + e.getApellido())
+                .map(e -> e.getNombre() + " " + e.getPrimerApellido())
                 .orElse("Desconocido");
 
         return mapToResponse(matricula, nombreEstudiante);
