@@ -19,22 +19,38 @@ public class EstudianteRequest {
     @NotBlank(message = "El nombre es requerido")
     private String nombre;
 
-    @NotBlank(message = "El apellido es requerido")
-    private String apellido;
+    private String segundoNombre;
+
+    @NotBlank(message = "El primer apellido es requerido")
+    private String primerApellido;
+
+    private String segundoApellido;
+
+    private String numeroRegistroCivil;
+
+    private LocalDate fechaExp;
 
     @NotNull(message = "La fecha de nacimiento es requerida")
     private LocalDate fechaNacimiento;
 
-    @NotBlank(message = "El tipo de documento es requerido")
-    private String tipoDocumento;
+    private Integer tipoSangre;
 
-    @NotBlank(message = "El número de documento es requerido")
-    private String numeroDocumento;
+    @NotBlank(message = "El sexo es requerido")
+    private String sexo;
 
-    @NotBlank(message = "El género es requerido")
-    private String genero;
+    private String correoPadres;
+
+    private Integer edad;
+
+    private String lugarNacimiento;
+
+    private String municipio;
+
+    private String departamento;
 
     private String direccion;
 
-    private String telefono;
+    private String barrio;
+
+    private String tipoEstudiante;
 }

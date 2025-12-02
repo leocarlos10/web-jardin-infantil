@@ -75,3 +75,14 @@ Nuevo camibo en el sistema de rol de un usuario ahora el sistema maneja tres tip
 Al registrarse mediante `/api/v1/auth/register`, los usuarios reciben automáticamente el rol `USUARIO`. Este rol permite acceso básico al sistema sin permisos administrativos ni de acudiente.
 
 Para asignar roles específicos (ACUDIENTE o ADMINISTRADOR), esto debe hacerse posteriormente a través de funcionalidades administrativas o procesos específicos del sistema.
+
+
+## para crear el jar utilizar. 
+```
+ mvn clean package -DskipTests
+```
+
+## Ejecutar jar con variables. 
+```
+ java "-Dspring.profiles.active=dev" -jar ./target/jar_name.jar.jar
+```

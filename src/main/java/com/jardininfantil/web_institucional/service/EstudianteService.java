@@ -35,23 +35,35 @@ public class EstudianteService {
         Acudiente acudiente = acudienteRepository.findById(request.getAcudienteId())
                 .orElseThrow(() -> new NotFoundException("Acudiente no encontrado"));
 
-        // Verificar que no existe un estudiante con el mismo documento
-        estudianteRepository.findByNumeroDocumento(request.getNumeroDocumento())
-                .ifPresent(e -> {
-                    throw new DataExistException(
-                            "Ya existe un estudiante con el documento " + request.getNumeroDocumento());
-                });
+        // Verificar que no existe un estudiante con el mismo documento (si se
+        // proporciona)
+        if (request.getNumeroRegistroCivil() != null && !request.getNumeroRegistroCivil().isEmpty()) {
+            estudianteRepository.findByNumeroDocumento(request.getNumeroRegistroCivil())
+                    .ifPresent(e -> {
+                        throw new DataExistException(
+                                "Ya existe un estudiante con el documento " + request.getNumeroRegistroCivil());
+                    });
+        }
 
         Estudiante estudiante = new Estudiante();
         estudiante.setAcudienteId(request.getAcudienteId());
         estudiante.setNombre(request.getNombre());
-        estudiante.setApellido(request.getApellido());
+        estudiante.setSegundoNombre(request.getSegundoNombre());
+        estudiante.setPrimerApellido(request.getPrimerApellido());
+        estudiante.setSegundoApellido(request.getSegundoApellido());
+        estudiante.setNumeroRegistroCivil(request.getNumeroRegistroCivil());
+        estudiante.setFechaExp(request.getFechaExp());
         estudiante.setFechaNacimiento(request.getFechaNacimiento());
-        estudiante.setTipoDocumento(request.getTipoDocumento());
-        estudiante.setNumeroDocumento(request.getNumeroDocumento());
-        estudiante.setGenero(request.getGenero());
+        estudiante.setTipoSangre(request.getTipoSangre());
+        estudiante.setSexo(request.getSexo());
+        estudiante.setCorreoPadres(request.getCorreoPadres());
+        estudiante.setEdad(request.getEdad());
+        estudiante.setLugarNacimiento(request.getLugarNacimiento());
+        estudiante.setMunicipio(request.getMunicipio());
+        estudiante.setDepartamento(request.getDepartamento());
         estudiante.setDireccion(request.getDireccion());
-        estudiante.setTelefono(request.getTelefono());
+        estudiante.setBarrio(request.getBarrio());
+        estudiante.setTipoEstudiante(request.getTipoEstudiante());
 
         Estudiante savedEstudiante = estudianteRepository.save(estudiante);
         
@@ -85,13 +97,22 @@ public class EstudianteService {
                 .orElseThrow(() -> new NotFoundException("Estudiante no encontrado"));
 
         estudiante.setNombre(request.getNombre());
-        estudiante.setApellido(request.getApellido());
+        estudiante.setSegundoNombre(request.getSegundoNombre());
+        estudiante.setPrimerApellido(request.getPrimerApellido());
+        estudiante.setSegundoApellido(request.getSegundoApellido());
+        estudiante.setNumeroRegistroCivil(request.getNumeroRegistroCivil());
+        estudiante.setFechaExp(request.getFechaExp());
         estudiante.setFechaNacimiento(request.getFechaNacimiento());
-        estudiante.setTipoDocumento(request.getTipoDocumento());
-        estudiante.setNumeroDocumento(request.getNumeroDocumento());
-        estudiante.setGenero(request.getGenero());
+        estudiante.setTipoSangre(request.getTipoSangre());
+        estudiante.setSexo(request.getSexo());
+        estudiante.setCorreoPadres(request.getCorreoPadres());
+        estudiante.setEdad(request.getEdad());
+        estudiante.setLugarNacimiento(request.getLugarNacimiento());
+        estudiante.setMunicipio(request.getMunicipio());
+        estudiante.setDepartamento(request.getDepartamento());
         estudiante.setDireccion(request.getDireccion());
-        estudiante.setTelefono(request.getTelefono());
+        estudiante.setBarrio(request.getBarrio());
+        estudiante.setTipoEstudiante(request.getTipoEstudiante());
 
         estudianteRepository.update(estudiante);
         
@@ -114,13 +135,22 @@ public class EstudianteService {
                 .acudienteId(estudiante.getAcudienteId())
                 .nombreAcudiente(nombreAcudiente)
                 .nombre(estudiante.getNombre())
-                .apellido(estudiante.getApellido())
+                .segundoNombre(estudiante.getSegundoNombre())
+                .primerApellido(estudiante.getPrimerApellido())
+                .segundoApellido(estudiante.getSegundoApellido())
+                .numeroRegistroCivil(estudiante.getNumeroRegistroCivil())
+                .fechaExp(estudiante.getFechaExp())
                 .fechaNacimiento(estudiante.getFechaNacimiento())
-                .tipoDocumento(estudiante.getTipoDocumento())
-                .numeroDocumento(estudiante.getNumeroDocumento())
-                .genero(estudiante.getGenero())
+                .tipoSangre(estudiante.getTipoSangre())
+                .sexo(estudiante.getSexo())
+                .correoPadres(estudiante.getCorreoPadres())
+                .edad(estudiante.getEdad())
+                .lugarNacimiento(estudiante.getLugarNacimiento())
+                .municipio(estudiante.getMunicipio())
+                .departamento(estudiante.getDepartamento())
                 .direccion(estudiante.getDireccion())
-                .telefono(estudiante.getTelefono())
+                .barrio(estudiante.getBarrio())
+                .tipoEstudiante(estudiante.getTipoEstudiante())
                 .createdAt(estudiante.getCreatedAt())
                 .updatedAt(estudiante.getUpdatedAt())
                 .build();

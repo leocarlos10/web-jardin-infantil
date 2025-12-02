@@ -28,13 +28,22 @@ public class EstudianteRepositoryImpl implements EstudianteRepository {
         estudiante.setEstudianteId(rs.getLong("estudiante_id"));
         estudiante.setAcudienteId(rs.getLong("acudiente_id"));
         estudiante.setNombre(rs.getString("nombre"));
-        estudiante.setApellido(rs.getString("apellido"));
+        estudiante.setSegundoNombre(rs.getString("segundo_nombre"));
+        estudiante.setPrimerApellido(rs.getString("primer_apellido"));
+        estudiante.setSegundoApellido(rs.getString("segundo_apellido"));
+        estudiante.setNumeroRegistroCivil(rs.getString("numero_registro_civil"));
+        estudiante.setFechaExp(rs.getDate("fecha_exp") != null ? rs.getDate("fecha_exp").toLocalDate() : null);
         estudiante.setFechaNacimiento(rs.getDate("fecha_nacimiento").toLocalDate());
-        estudiante.setTipoDocumento(rs.getString("tipo_documento"));
-        estudiante.setNumeroDocumento(rs.getString("numero_documento"));
-        estudiante.setGenero(rs.getString("genero"));
+        estudiante.setTipoSangre(rs.getInt("tipo_sangre"));
+        estudiante.setSexo(rs.getString("sexo"));
+        estudiante.setCorreoPadres(rs.getString("correo_padres"));
+        estudiante.setEdad(rs.getInt("edad"));
+        estudiante.setLugarNacimiento(rs.getString("lugar_nacimiento"));
+        estudiante.setMunicipio(rs.getString("municipio"));
+        estudiante.setDepartamento(rs.getString("departamento"));
         estudiante.setDireccion(rs.getString("direccion"));
-        estudiante.setTelefono(rs.getString("telefono"));
+        estudiante.setBarrio(rs.getString("barrio"));
+        estudiante.setTipoEstudiante(rs.getString("tipo_estudiante"));
         estudiante.setCreatedAt(rs.getTimestamp("created_at").toLocalDateTime());
         estudiante.setUpdatedAt(rs.getTimestamp("updated_at").toLocalDateTime());
         return estudiante;
@@ -42,20 +51,33 @@ public class EstudianteRepositoryImpl implements EstudianteRepository {
 
     @Override
     public Estudiante save(Estudiante estudiante) {
-        String sql = "INSERT INTO estudiante (acudiente_id, nombre, apellido, fecha_nacimiento, tipo_documento, numero_documento, genero, direccion, telefono) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO estudiante (acudiente_id, nombre, segundo_nombre, primer_apellido, segundo_apellido, "
+                +
+                "numero_registro_civil, fecha_exp, fecha_nacimiento, tipo_sangre, sexo, correo_padres, edad, " +
+                "lugar_nacimiento, municipio, departamento, direccion, barrio, tipo_estudiante) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
         jdbcTemplate.update(connection -> {
             PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setLong(1, estudiante.getAcudienteId());
             ps.setString(2, estudiante.getNombre());
-            ps.setString(3, estudiante.getApellido());
-            ps.setDate(4, Date.valueOf(estudiante.getFechaNacimiento()));
-            ps.setString(5, estudiante.getTipoDocumento());
-            ps.setString(6, estudiante.getNumeroDocumento());
-            ps.setString(7, estudiante.getGenero());
-            ps.setString(8, estudiante.getDireccion());
-            ps.setString(9, estudiante.getTelefono());
+            ps.setString(3, estudiante.getSegundoNombre());
+            ps.setString(4, estudiante.getPrimerApellido());
+            ps.setString(5, estudiante.getSegundoApellido());
+            ps.setString(6, estudiante.getNumeroRegistroCivil());
+            ps.setDate(7, estudiante.getFechaExp() != null ? Date.valueOf(estudiante.getFechaExp()) : null);
+            ps.setDate(8, Date.valueOf(estudiante.getFechaNacimiento()));
+            ps.setObject(9, estudiante.getTipoSangre());
+            ps.setString(10, estudiante.getSexo());
+            ps.setString(11, estudiante.getCorreoPadres());
+            ps.setObject(12, estudiante.getEdad());
+            ps.setString(13, estudiante.getLugarNacimiento());
+            ps.setString(14, estudiante.getMunicipio());
+            ps.setString(15, estudiante.getDepartamento());
+            ps.setString(16, estudiante.getDireccion());
+            ps.setString(17, estudiante.getBarrio());
+            ps.setString(18, estudiante.getTipoEstudiante());
             return ps;
         }, keyHolder);
 
@@ -84,23 +106,36 @@ public class EstudianteRepositoryImpl implements EstudianteRepository {
 
     @Override
     public Optional<Estudiante> findByNumeroDocumento(String numeroDocumento) {
-        String sql = "SELECT * FROM estudiante WHERE numero_documento = ?";
+        String sql = "SELECT * FROM estudiante WHERE numero_registro_civil = ?";
         List<Estudiante> estudiantes = jdbcTemplate.query(sql, rowMapper, numeroDocumento);
         return estudiantes.isEmpty() ? Optional.empty() : Optional.of(estudiantes.get(0));
     }
 
     @Override
     public void update(Estudiante estudiante) {
-        String sql = "UPDATE estudiante SET nombre = ?, apellido = ?, fecha_nacimiento = ?, tipo_documento = ?, numero_documento = ?, genero = ?, direccion = ?, telefono = ? WHERE estudiante_id = ?";
+        String sql = "UPDATE estudiante SET nombre = ?, segundo_nombre = ?, primer_apellido = ?, segundo_apellido = ?, "
+                +
+                "numero_registro_civil = ?, fecha_exp = ?, fecha_nacimiento = ?, tipo_sangre = ?, sexo = ?, " +
+                "correo_padres = ?, edad = ?, lugar_nacimiento = ?, municipio = ?, departamento = ?, " +
+                "direccion = ?, barrio = ?, tipo_estudiante = ? WHERE estudiante_id = ?";
         jdbcTemplate.update(sql,
                 estudiante.getNombre(),
-                estudiante.getApellido(),
+                estudiante.getSegundoNombre(),
+                estudiante.getPrimerApellido(),
+                estudiante.getSegundoApellido(),
+                estudiante.getNumeroRegistroCivil(),
+                estudiante.getFechaExp() != null ? Date.valueOf(estudiante.getFechaExp()) : null,
                 Date.valueOf(estudiante.getFechaNacimiento()),
-                estudiante.getTipoDocumento(),
-                estudiante.getNumeroDocumento(),
-                estudiante.getGenero(),
+                estudiante.getTipoSangre(),
+                estudiante.getSexo(),
+                estudiante.getCorreoPadres(),
+                estudiante.getEdad(),
+                estudiante.getLugarNacimiento(),
+                estudiante.getMunicipio(),
+                estudiante.getDepartamento(),
                 estudiante.getDireccion(),
-                estudiante.getTelefono(),
+                estudiante.getBarrio(),
+                estudiante.getTipoEstudiante(),
                 estudiante.getEstudianteId());
     }
 
