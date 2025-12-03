@@ -1,6 +1,6 @@
-package com.jardininfantil.api.email.provider;
+package com.jardininfantil.web_institucional.api.email.provider;
 
-import com.jardininfantil.api.email.EmailProvider;
+import com.jardininfantil.web_institucional.api.email.EmailProvider;
 import io.mailtrap.client.MailtrapClient;
 import io.mailtrap.config.MailtrapConfig;
 import io.mailtrap.factory.MailtrapClientFactory;

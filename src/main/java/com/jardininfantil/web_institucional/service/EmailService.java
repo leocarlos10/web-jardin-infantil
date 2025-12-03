@@ -1,6 +1,6 @@
 package com.jardininfantil.web_institucional.service;
 
-import com.jardininfantil.api.email.EmailServiceApi;
+import com.jardininfantil.web_institucional.api.email.EmailServiceApi;
 import com.jardininfantil.web_institucional.models.Usuario;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -13,8 +13,10 @@ public class EmailService {
 
     private final EmailServiceApi emailService; 
 
-    public void sendVerificationEmail(Usuario usuario) {
-        String correo = usuario.getCorreo();
+    public void sendVerificationEmail(Object data) {
+        Usuario registroData = (Usuario) data;
+        String correo = registroData.getCorreo();
+
 
         String subject = "Cuenta creada Jardín Infantil";
         String body = """
