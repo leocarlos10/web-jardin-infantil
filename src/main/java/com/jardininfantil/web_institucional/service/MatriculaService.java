@@ -68,10 +68,7 @@ public class MatriculaService {
         Matricula matricula = matriculaRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Matrícula no encontrada"));
 
-        matricula.setFecha(request.getFecha());
-        matricula.setGrado(request.getGrado());
-        matricula.setValorTotal(request.getValorTotal());
-        matricula.setContratoFirmado(request.getContratoFirmado());
+        matricula.setEstadoMatricula(EstadoMatricula.valueOf(request.getEstadoMatricula()));
 
         matriculaRepository.update(matricula);
         return mapToResponseSimple(matricula);

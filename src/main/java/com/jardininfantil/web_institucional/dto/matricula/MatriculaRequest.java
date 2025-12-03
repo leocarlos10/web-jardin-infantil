@@ -30,4 +30,7 @@ public class MatriculaRequest {
 
     @NotNull(message = "El contrato firmado es requerido")
     private BigDecimal contratoFirmado;
+
+    @NotBlank(message = "El estado de matrícula es requerido")
+    private String estadoMatricula;
 }

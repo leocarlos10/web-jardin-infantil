@@ -22,7 +22,7 @@ public class MatriculaController {
         this.matriculaService = matriculaService;
     }
 
-    @PostMapping
+    @PostMapping("/crear")
     public ResponseEntity<Response<MatriculaResponse>> crearMatricula(@Valid @RequestBody MatriculaRequest request) {
         MatriculaResponse matricula = matriculaService.crearMatricula(request);
         Response<MatriculaResponse> response = Response.<MatriculaResponse>builder()
@@ -44,7 +44,7 @@ public class MatriculaController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping
+    @GetMapping("/obtenerTodas")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Response<List<MatriculaResponse>>> listarTodasMatriculas() {
         List<MatriculaResponse> matriculas = matriculaService.listarTodasMatriculas();
@@ -68,7 +68,7 @@ public class MatriculaController {
         return ResponseEntity.ok(response);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/{id}/actualizar")
     public ResponseEntity<Response<MatriculaResponse>> actualizarMatricula(
             @PathVariable Long id,
             @Valid @RequestBody MatriculaRequest request) {
