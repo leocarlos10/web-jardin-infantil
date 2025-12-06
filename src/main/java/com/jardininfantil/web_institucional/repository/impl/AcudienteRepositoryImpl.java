@@ -27,9 +27,11 @@ public class AcudienteRepositoryImpl implements AcudienteRepository {
         acudiente.setAcudienteId(rs.getLong("acudiente_id"));
         acudiente.setUsuarioId(rs.getLong("usuario_id"));
         acudiente.setNombre(rs.getString("nombre"));
-        acudiente.setApellido(rs.getString("apellido"));
-        acudiente.setTipoDocumento(rs.getString("tipo_documento"));
-        acudiente.setNumeroDocumento(rs.getString("numero_documento"));
+        acudiente.setSegundoNombre(rs.getString("segundo_nombre"));
+        acudiente.setApellido(rs.getString("primer_apellido"));
+        acudiente.setSegundoApellido(rs.getString("segundo_apellido"));
+       // acudiente.setTipoDocumento(rs.getString("tipo_documento"));
+        acudiente.setNumeroDocumento(rs.getString("cedula"));
         acudiente.setTelefono(rs.getString("telefono"));
         acudiente.setCorreo(rs.getString("correo"));
         acudiente.setDireccion(rs.getString("direccion"));

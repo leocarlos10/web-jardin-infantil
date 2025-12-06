@@ -8,6 +8,7 @@ import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,8 +24,11 @@ public class EstudianteController {
     }
 
     @PostMapping
-    public ResponseEntity<Response<EstudianteResponse>> crearEstudiante(@Valid @RequestBody EstudianteRequest request) {
-        EstudianteResponse estudiante = estudianteService.crearEstudiante(request);
+    public ResponseEntity<Response<EstudianteResponse>> crearEstudiante(
+        @Valid @RequestBody EstudianteRequest request, 
+         Authentication authentication
+    ) {
+        EstudianteResponse estudiante = estudianteService.crearEstudiante(request ,authentication);
         Response<EstudianteResponse> response = Response.<EstudianteResponse>builder()
                 .responseCode(HttpStatus.CREATED.value())
                 .responseMessage("Estudiante creado exitosamente")

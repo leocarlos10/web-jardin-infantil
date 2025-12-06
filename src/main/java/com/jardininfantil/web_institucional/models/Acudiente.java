@@ -12,7 +12,9 @@ public class Acudiente {
     private Long acudienteId;
     private Long usuarioId;
     private String nombre;
+    private String segundoNombre; 
     private String apellido;
+    private String segundoApellido; 
     private String tipoDocumento;
     private String numeroDocumento;
     private String telefono;

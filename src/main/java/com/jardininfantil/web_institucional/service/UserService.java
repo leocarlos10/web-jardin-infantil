@@ -116,7 +116,7 @@ public class UserService {
             .toList();
 
         LoginResponse loginResponse = LoginResponse.builder()
-            .nombre(userDetails.getUsername())
+            .nombre(userDetails.getNombre())
             .email(userDetails.getEmail())
             .roles(roles)
             .accessToken(jwt)

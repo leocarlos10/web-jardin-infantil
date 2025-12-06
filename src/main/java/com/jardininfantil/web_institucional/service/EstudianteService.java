@@ -6,10 +6,13 @@ import com.jardininfantil.web_institucional.exception.DataExistException;
 import com.jardininfantil.web_institucional.exception.NotFoundException;
 import com.jardininfantil.web_institucional.models.Acudiente;
 import com.jardininfantil.web_institucional.models.Estudiante;
+import com.jardininfantil.web_institucional.models.Usuario;
 import com.jardininfantil.web_institucional.pattern.observer.EventManager;
 import com.jardininfantil.web_institucional.pattern.observer.EventType;
 import com.jardininfantil.web_institucional.repository.AcudienteRepository;
 import com.jardininfantil.web_institucional.repository.EstudianteRepository;
+import com.jardininfantil.web_institucional.repository.UserRepository;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,21 +23,40 @@ public class EstudianteService {
 
     private final EstudianteRepository estudianteRepository;
     private final AcudienteRepository acudienteRepository;
+    private final UserRepository userRepository; 
     private final EventManager eventManager;
 
-    public EstudianteService(EstudianteRepository estudianteRepository, 
-                            AcudienteRepository acudienteRepository,
-                            EventManager eventManager) {
+    public EstudianteService(
+        EstudianteRepository estudianteRepository, 
+        AcudienteRepository acudienteRepository,
+        EventManager eventManager,
+        UserRepository userRepository
+    ) {
+        
         this.estudianteRepository = estudianteRepository;
         this.acudienteRepository = acudienteRepository;
         this.eventManager = eventManager;
+        this.userRepository = userRepository;
     }
 
-    public EstudianteResponse crearEstudiante(EstudianteRequest request) {
-        // Verificar que el acudiente existe
+    public EstudianteResponse crearEstudiante(EstudianteRequest request ,  Authentication authentication) {
+        
+        // get the userEmail from the login
+        String userEmail = authentication.getName(); 
+        
+        // find the user by email for get the id 
+        Usuario user = userRepository.findByEmail(userEmail)
+            .orElseThrow(() -> new NotFoundException("Usuario no encontrado"));
+
+        // Find the guardian by user ID
+        Acudiente acudiente = acudienteRepository.findByUsuarioId(user.getUsuarioId())
+            .orElseThrow(() -> new NotFoundException("Acudiente no encontrado"));
+
+       /* 
         Acudiente acudiente = acudienteRepository.findById(request.getAcudienteId())
                 .orElseThrow(() -> new NotFoundException("Acudiente no encontrado"));
-
+       */
+                
         // Verificar que no existe un estudiante con el mismo documento (si se
         // proporciona)
         if (request.getNumeroRegistroCivil() != null && !request.getNumeroRegistroCivil().isEmpty()) {
@@ -46,7 +68,7 @@ public class EstudianteService {
         }
 
         Estudiante estudiante = new Estudiante();
-        estudiante.setAcudienteId(request.getAcudienteId());
+        estudiante.setAcudienteId(acudiente.getAcudienteId());
         estudiante.setNombre(request.getNombre());
         estudiante.setSegundoNombre(request.getSegundoNombre());
         estudiante.setPrimerApellido(request.getPrimerApellido());
