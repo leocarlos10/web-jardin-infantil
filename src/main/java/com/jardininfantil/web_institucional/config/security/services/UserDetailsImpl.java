@@ -20,6 +20,7 @@ public class UserDetailsImpl implements UserDetails {
     @Getter
     private final Long id;
 
+    @Getter
     private final String nombre;
 
     @Getter
@@ -72,7 +73,7 @@ public class UserDetailsImpl implements UserDetails {
 
     @Override
     public String getUsername() {
-        return nombre;
+        return email;
     }
 
     @Override

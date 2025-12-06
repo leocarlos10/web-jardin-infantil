@@ -31,8 +31,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                 new UsernameNotFoundException("User Email Not Found : " + email)
             );
 
-        System.out.println(user);
-
         return UserDetailsImpl.build(user);
     }
 }
